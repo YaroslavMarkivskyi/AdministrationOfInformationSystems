@@ -1,0 +1,11 @@
+---
+- hosts: all
+  user: asus
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Chang prefix of prod hostname
+      lineinfile:
+        path: /etc/hostname
+        regexp: '^asus-changed'
+        line: asus-clone

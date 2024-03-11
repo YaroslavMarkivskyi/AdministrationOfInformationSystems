@@ -1,0 +1,17 @@
+---
+- name: Install package on remote virtual machine
+  hosts: 192.168.31.11
+  become: true  # Allows you to execute commands in administrator mode
+
+  tasks:
+    - name: Defining the distribution family
+      set_fact:
+        package_manager: "{{ 'apt' if ansible_os_family == 'Debian' else 'yum' }}"
+
+    - name: Install package
+      package:
+        name: "{{ package_to_install }}"
+        state: present
+      when: package_manager is defined
+
+
